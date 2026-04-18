@@ -3,99 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Chat Application</title>
+    <title>AI Chat Interface</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.5);
             backdrop-filter: blur(10px);
+            font-family: Arial, sans-serif;
             color: #333;
             margin: 0;
             padding: 20px;
         }
         .chat-container {
-            max-width: 600px;
-            margin: auto;
+            width: 400px;
             background: rgba(255, 255, 255, 0.8);
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            display: flex;
-            flex-direction: column;
+            overflow: hidden;
         }
         .chat-box {
-            flex-grow: 1;
+            height: 300px;
             overflow-y: auto;
-            border: 1px solid #ddd;
-            border-radius: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
             padding: 10px;
-            margin-bottom: 10px;
-            background-color: #fff;
         }
-        .input-area {
+        .input-box {
             display: flex;
+            margin-top: 10px;
         }
-        .input-area input {
-            flex-grow: 1;
+        .input-box input {
+            flex: 1;
             padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
-        .input-area button {
+        .input-box button {
             padding: 10px;
             border: none;
+            border-radius: 5px;
             background-color: #007BFF;
             color: white;
-            border-radius: 10px;
-            margin-left: 10px;
+            cursor: pointer;
         }
-        .admin-panel {
+        .input-box button:hover {
+            background-color: #0056b3;
+        }
+        . admin-panel {
             margin-top: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
+            background: #f8f9fa;
             padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
         }
     </style>
 </head>
 <body>
-
     <div class="chat-container">
-        <h1>AI Chat Application</h1>
+        <h2>AI Chat Interface</h2>
         <div class="chat-box" id="chat-box"></div>
-        <div class="input-area">
-            <input type="text" id="user-input" placeholder="Type your message here...">
+        <div class="input-box">
+            <input type="text" id="user-input" placeholder="Type your message..." />
             <button onclick="sendMessage()">Send</button>
         </div>
-
         <div class="admin-panel">
             <h3>Admin Panel</h3>
-            <p>Manage chatbot settings here.</p>
-            <!-- Admin functionality goes here -->
+            <p>Admin functionalities go here.</p>
         </div>
     </div>
-
     <script>
-        function sendMessage() {
-            const input = document.getElementById('user-input');
-            const chatBox = document.getElementById('chat-box');
-            const userMessage = input.value;
+        const chatBox = document.getElementById('chat-box');
+        const userInput = document.getElementById('user-input');
 
-            if (userMessage.trim() === "") return;
-
-            // Display user message
-            chatBox.innerHTML += `<div>User: ${userMessage}</div>`;
-            input.value = '';
-
-            // Simulate AI response
-            setTimeout(() => {
-                chatBox.innerHTML += `<div>AI: ${getAIResponse(userMessage)}</div>`;
-                chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom
-            }, 1000);
+        function typeWriter(text, element, callback) {
+            let index = 0;
+            function type() {
+                if (index < text.length) {
+                    element.innerHTML += text.charAt(index);
+                    index++;
+                    setTimeout(type, 100);
+                } else if (callback) {
+                    callback();
+                }
+            }
+            type();
         }
 
-        function getAIResponse(message) {
-            // Example AI response (replace with actual AI integration)
-            return "This is a simulated response to your message: " + message;
+        function sendMessage() {
+            const message = userInput.value;
+            if (message) {
+                chatBox.innerHTML += `<div>User: ${message}</div>`;
+                userInput.value = '';
+
+                // Simulating AI response 
+                const aiResponse = 'This is a simulated AI response.\n';
+                typeWriter(aiResponse, chatBox);
+                playSound();
+            }
+        }
+
+        function playSound() {
+            const audio = new Audio('https://example.com/sound.mp3'); // Replace with actual sound URL
+            audio.play();
         }
     </script>
 </body>
