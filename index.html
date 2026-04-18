@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .chat-container {
+            max-width: 600px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-box {
+            flex-grow: 1;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fff;
+        }
+        .input-area {
+            display: flex;
+        }
+        .input-area input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+        .input-area button {
+            padding: 10px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 10px;
+            margin-left: 10px;
+        }
+        .admin-panel {
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="chat-container">
+        <h1>AI Chat Application</h1>
+        <div class="chat-box" id="chat-box"></div>
+        <div class="input-area">
+            <input type="text" id="user-input" placeholder="Type your message here...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+
+        <div class="admin-panel">
+            <h3>Admin Panel</h3>
+            <p>Manage chatbot settings here.</p>
+            <!-- Admin functionality goes here -->
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const input = document.getElementById('user-input');
+            const chatBox = document.getElementById('chat-box');
+            const userMessage = input.value;
+
+            if (userMessage.trim() === "") return;
+
+            // Display user message
+            chatBox.innerHTML += `<div>User: ${userMessage}</div>`;
+            input.value = '';
+
+            // Simulate AI response
+            setTimeout(() => {
+                chatBox.innerHTML += `<div>AI: ${getAIResponse(userMessage)}</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom
+            }, 1000);
+        }
+
+        function getAIResponse(message) {
+            // Example AI response (replace with actual AI integration)
+            return "This is a simulated response to your message: " + message;
+        }
+    </script>
+</body>
+</html>
